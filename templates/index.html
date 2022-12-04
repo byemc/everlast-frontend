@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Everlast</title>
+    
+    <style>
+
+        @font-face {
+            font-family: Minecraft;
+            src: url("{{ url_for('static', filename='gui/Minecraftia-Regular.ttf') }}");
+        }
+
+        body {
+
+            background-color: #383838;
+            color: ghostwhite;
+            margin: auto;
+
+
+
+        }
+
+        * {
+            font-family: 'Minecraft', monospace;
+
+        }
+
+        header div.items {
+            display: flex;
+            align-content: center;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .left {
+            text-align: left;
+        }
+
+        header {
+            font-size: 20px;
+            background-color: rgba(0,0,0,.5);
+        }
+
+        header h1 {
+            font-size: 20px;
+        }
+
+        main {
+            max-width: 640px;
+            margin: auto;
+        }
+
+        a {
+            color: rgb(174, 212, 255);
+        }
+
+        #nextversion {
+            width: calc(182px * 3);
+            height: calc(5px * 3);
+            image-rendering: pixelated;
+        }
+
+        #versioncounter {
+            display: flex;
+            color: #80ff20;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+            font-size: 24px;
+        }
+        #versioncounter .number {
+            text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
+            text-align: center;
+            margin-bottom: -9px;
+        }
+        #versioncounter canvas {
+            z-index: -1;
+        }
+
+        #versioncounter p {
+            font-size: 12px;
+        }
+        #versioncounter p code, #versioncounter p time {
+            font-size: 12px;
+            font-family: 'Minecraft', monospace;
+            color: #d0ffad;
+        }
+
+
+        .yellow {
+            color: #fefe3f
+        }
+        
+        img.figure {
+            width: 100%;
+        }
+
+        ul li::marker {
+            content: "- ";
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="items">
+            <h1><a href="/">Everlast</a></h1>
+            <div class="left">
+                <p>IP: <code>everlast.byemc.live</code></p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+    <h1>Everlast</h1>
+    <p>Everlast brings back the older versions of Minecraft, upgrading every few months. </p>
+
+
+    <div id="versioncounter">
+        <div class="number">Pre-launch</div>
+        <canvas width="182" height="5" id="nextversion">
+            <progress id="nextlv" value="25" max="100" mix="100"></progress>
+        </canvas>
+        <p>Upgrading to <code>release 1.0.0</code> on <time datetime="{{ DATA['endTime'] }}" id="timetillupdate">{{ DATA['endTime'] | toShortTime }}</time></p>
+    </div>
+
+    <h2 id="things-to-note">Things to note</h2>
+    <ul>
+        <li>Old versions of Minecraft require <span class="yellow">Java 8</span>. Linux users should make sure it's properly installed so Minecraft can run.</li>
+        <li>Versions of Minecraft prior to 1.8 <span class="warning">ARE NOT</span> affected by Log4Shell. All post-1.7.X versions will be the patched.</li>
+        <li>"Cracked" or offline accounts can not join.</li>
+    </ul>
+
+    </main>
+
+
+    <script>
+
+        let prog = document.getElementById("nextlv")
+
+        let fontFile = new Image()
+        fontFile.src = "{{ url_for('static', filename='gui/default.png') }}"
+        let fontData = fetch("{{ url_for('static', filename='gui/font.json') }}")
+
+        let canvas = document.getElementById("nextversion");
+        let startTime = new Date({{ DATA['startTime'] }});
+        console.log(startTime)
+        let endTime = new Date({{ DATA['endTime'] }})
+        console.log(endTime)
+        let currentTime = new Date();
+
+        let percentDone = (currentTime - startTime) / (endTime - startTime)
+        console.log(percentDone)
+
+        prog.value = percentDone * 100;
+
+        let barctx = canvas.getContext("2d");
+
+        let icons = new Image()
+        icons.src = "{{ url_for('static', filename='gui/icons.png') }}"
+        
+        icons.onload = _=>{
+            console.log(icons)
+
+            barctx.imageSmoothingEnabled = false;
+            
+            barctx.drawImage(icons, 0, 64, 182, 5, 0, canvas.height-5, canvas.width, 5);
+            barctx.drawImage(icons, 0, 69, ((percentDone) * 182), 5, 0, canvas.height-5, ((percentDone) * canvas.width), 5);
+        }
+        </script>
+
+</body>
+</html>
