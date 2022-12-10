@@ -14,10 +14,18 @@ DATA = {
     "endTime": 1671128400000,  # unix millies
 }
 
+news = [
+    {
+        "date": "Dec 10 2022",
+        "title": "[byemc.xyz] Everlast // Second time's the charm",
+        "url": "https://byemc.xyz/blog/everlast-second-times-the-charm",
+    }
+]
+
 
 @app.route("/")
 def index():
-    return render_template("index.html", DATA=DATA)
+    return render_template("index.html", DATA=DATA, news=news)
 
 
 @app.template_filter()
@@ -36,4 +44,4 @@ def toShortTime(value):
 #     return str(status.players.online)
 
 
-app.run(debug=True)
+app.run(debug=True, port=5001)

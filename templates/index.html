@@ -20,14 +20,10 @@
             color: ghostwhite;
             margin: auto;
 
-
-
-        }
-
-        * {
-            font-family: 'Minecraft', monospace;
+            font-family: 'Courier New', Courier, monospace;
 
         }
+
 
         header div.items {
             display: flex;
@@ -45,6 +41,12 @@
         header {
             font-size: 20px;
             background-color: rgba(0,0,0,.5);
+            font-family: Minecraft, monospace;
+        }
+
+        code {
+            font-family: 'Minecraft', monospace;
+            color: #d0ffad;
         }
 
         header h1 {
@@ -112,7 +114,7 @@
 
     <header>
         <div class="items">
-            <h1><a href="/">Everlast</a></h1>
+            <h1><a href="/"><img height="50" src="{{ url_for('static', filename='everlastbanner.png') }}" alt="Everlast"></a></h1>
             <div class="left">
                 <p>IP: <code>everlast.byemc.live</code></p>
             </div>
@@ -125,7 +127,7 @@
     <p>Everlast brings back the older versions of Minecraft, upgrading every few months. </p>
 
 
-    <div id="versioncounter">
+    <div id="versioncounter" style="font-family: Minecraft, monospace">
         <div class="number">Pre-launch</div>
         <canvas width="182" height="5" id="nextversion">
             <progress id="nextlv" value="25" max="100" mix="100"></progress>
@@ -140,6 +142,14 @@
         <li>"Cracked" or offline accounts can not join.</li>
     </ul>
 
+    <h2 id="news">News</h2>
+    <ul>
+        {% for item in news %}
+            <li>
+                <h3><a href="{{ item['url'] }}">{{ item['title'] }}</a></h3>
+            </li>
+        {% endfor %}
+    </ul>
     </main>
 
 
