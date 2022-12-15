@@ -128,11 +128,11 @@
 
 
     <div id="versioncounter" style="font-family: Minecraft, monospace">
-        <div class="number">Pre-launch</div>
+        <div class="number">{{ DATA['version'] }}</div>
         <canvas width="182" height="5" id="nextversion">
             <progress id="nextlv" value="25" max="100" mix="100"></progress>
         </canvas>
-        <p>Upgrading to <code>release 1.0.0</code> on <time datetime="{{ DATA['endTime'] }}" id="timetillupdate">{{ DATA['endTime'] | toShortTime }}</time></p>
+        <p>Upgrading to <code>{{ DATA['nextversion'] }}</code> on <time datetime="{{ DATA['endTime'] }}" id="timetillupdate">{{ DATA['endTime'] | toShortTime }} Irish time</time></p>
     </div>
 
     <h2 id="things-to-note">Things to note</h2>

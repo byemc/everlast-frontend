@@ -8,10 +8,10 @@ app = Flask(__name__)
 
 
 DATA = {
-    "version": "Pre-launch",
-    "nextversion": "release 1.0.0",
-    "startTime": 1669852799000,  # unix millies
-    "endTime": 1671128400000,  # unix millies
+    "version": "1.0",
+    "nextversion": "release 1.1",
+    "startTime": 1671130431000,  # unix millies
+    "endTime": 1674241200000,  # unix millies
 }
 
 news = [
